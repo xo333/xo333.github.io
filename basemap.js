@@ -43,6 +43,23 @@ let myLayers= {
 
 
 // Layer zur Karte hinzufügen - zusammenbauen 
-myMap.addLayer(myLayers.bmaporthofoto30cm);
+myMap.addLayer(myLayers.osm);
+
+let myMapControl = L.control.layers ({
+    "Openstreetmap" :myLayers.osm,
+    "basemap.at Gundkarte":myLayers.geolandbasemap,
+    
+    "basemap.at grau":myLayers.bmapgrau,
+    "basemap.at highdpi":myLayers.bmaphidpi,
+    "basemap.at Orthofoto":myLayers.bmaporthofoto30cm,
+    
+},
+{   "basemap.at Overlay":myLayers.bmapoverlay,
+
+});
+
+myMap.addControl (myMapControl);
+
+
 // Zentrum der Karte setzen 
 myMap.setView([47.267,11.383],11)
