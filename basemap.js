@@ -66,12 +66,17 @@ myMap.setView([47.267,11.383],11)
 
 // Doclink Scale: http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
 // Link: Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-position
-const myScaleControl =  L.control.scale (
-maxWidth= 200,
-metric= true,
-imperial= false,
-position= "bottomleft",
-).addTo(myMap);
+let myScaleControl =  L.control.scale({
+    options:{
+        maxWidth: 200,
+        metric: true,
+        imperial: false,
+        position: "bottomleft"
+    }
+}).addTo(myMap);
+
+
 
 // imperial wird trotzdem angezeigt.. bekomme es auch mit true und false nicht raus. 
+
 
