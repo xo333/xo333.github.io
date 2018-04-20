@@ -1,9 +1,15 @@
 // Rahmen für die Karte 
 let myMap = L.map("mapdiv");
+//DOClink: 1.3.0.html#map-l-map
 let myLayers= {
     osm: L.tileLayer (
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            //subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution: "Datenquelle: <a href='https://www.openstreetmap.org'>openstreetmap.org</a>"
+        }
     ),
+    // DOCLINK tileLayer: http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
     geolandbasemap: L.tileLayer(
         "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png",
         {
@@ -65,7 +71,7 @@ myMap.addControl (myMapControl);
 myMap.setView([47.267,11.383],11)
 
 // Doclink Scale: http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
-// Link: Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-position
+// Doclink: Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-position
 let myScaleControl =  L.control.scale({
     options:{
         maxWidth: 200,
@@ -77,6 +83,6 @@ let myScaleControl =  L.control.scale({
 
 
 
-// imperial wird trotzdem angezeigt.. bekomme es auch mit true und false nicht raus. 
+// miles werden trotzdem angezeigt.. hab schon einiges probiert aber das bisher noch keine funktionierende Lösung
 
 
