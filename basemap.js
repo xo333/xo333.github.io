@@ -71,9 +71,6 @@ let myMapControl = L.control.layers ({
 {"collapsed":false});
 
 //DOCLINK für collapse: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
-// weiß grad noch nicht, wie ich es einbauen soll
-
-
 
 myMap.addControl (myMapControl);
 
@@ -82,7 +79,6 @@ myMap.addControl (myMapControl);
 
 // Zentrum der Karte setzen 
 myMap.setView([47.267,11.383],11)
-
 //DOKLINK: http://leafletjs.com/reference-1.3.0.html#map-setview
 
 // Doclink Scale: http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
@@ -93,10 +89,3 @@ L.control.scale({
         imperial: false,
         position: "bottomleft"
 }).addTo(myMap);
-
-
-
-
-// miles werden trotzdem angezeigt.. hab schon einiges probiert aber das bisher noch keine funktionierende Lösung
-
-
