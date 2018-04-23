@@ -5,7 +5,7 @@ let myLayers= {
     osm: L.tileLayer (
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-            subdomains : ["a", "b", "c"],// -> braucht osm die Subdomains?
+            subdomains : ["a", "b", "c"],
             //DOCLINK:http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
         attribution: "Datenquelle: <a href='https://www.openstreetmap.org'>openstreetmap.org</a>"
         //DOCLINK: http://leafletjs.com/reference-1.3.0.html#layer-attribution
@@ -57,6 +57,7 @@ myMap.addLayer(myLayers.osm);
 
 //DOKLINK: http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
 let myMapControl = L.control.layers ({
+    
     "Openstreetmap" :myLayers.osm,
     "basemap.at Gundkarte":myLayers.geolandbasemap,
     
@@ -68,6 +69,8 @@ let myMapControl = L.control.layers ({
 {   "basemap.at Overlay":myLayers.bmapoverlay,
 
 });
+
+
 
 myMap.addControl (myMapControl);
 
