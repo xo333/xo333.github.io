@@ -60,7 +60,6 @@ let myMapControl = L.control.layers ({
     
     "Openstreetmap" :myLayers.osm,
     "basemap.at Gundkarte":myLayers.geolandbasemap,
-    
     "basemap.at grau":myLayers.bmapgrau,
     "basemap.at highdpi":myLayers.bmaphidpi,
     "basemap.at Orthofoto":myLayers.bmaporthofoto30cm,
@@ -68,7 +67,11 @@ let myMapControl = L.control.layers ({
 },
 {   "basemap.at Overlay":myLayers.bmapoverlay,
 
-});
+},
+{"collapsed":false});
+
+//DOCLINK für collapse: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
+// weiß grad noch nicht, wie ich es einbauen soll
 
 
 
@@ -84,14 +87,13 @@ myMap.setView([47.267,11.383],11)
 
 // Doclink Scale: http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
 // Doclink: Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-position
-let myScaleControl =  L.control.scale({
-    options:{
-        maxWidth: 200,
+L.control.scale({
+        maxWidth: 150,
         metric: true,
         imperial: false,
         position: "bottomleft"
-    }
 }).addTo(myMap);
+
 
 
 
