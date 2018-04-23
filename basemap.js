@@ -5,8 +5,10 @@ let myLayers= {
     osm: L.tileLayer (
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-            //subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+            subdomains : ["a", "b", "c"],// -> braucht osm die Subdomains?
+            //DOCLINK:http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
         attribution: "Datenquelle: <a href='https://www.openstreetmap.org'>openstreetmap.org</a>"
+        //DOCLINK: http://leafletjs.com/reference-1.3.0.html#layer-attribution
         }
     ),
     // DOCLINK tileLayer: http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
@@ -51,6 +53,9 @@ let myLayers= {
 // Layer zur Karte hinzufügen - zusammenbauen 
 myMap.addLayer(myLayers.osm);
 
+//DOCLINK: http://leafletjs.com/reference-1.3.0.html#map-addlayer
+
+//DOKLINK: http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
 let myMapControl = L.control.layers ({
     "Openstreetmap" :myLayers.osm,
     "basemap.at Gundkarte":myLayers.geolandbasemap,
@@ -66,9 +71,13 @@ let myMapControl = L.control.layers ({
 
 myMap.addControl (myMapControl);
 
+//DOCLINK: http://leafletjs.com/reference-1.3.0.html#map-addcontrol
+
 
 // Zentrum der Karte setzen 
 myMap.setView([47.267,11.383],11)
+
+//DOKLINK: http://leafletjs.com/reference-1.3.0.html#map-setview
 
 // Doclink Scale: http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
 // Doclink: Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-position
