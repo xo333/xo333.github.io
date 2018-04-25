@@ -1,6 +1,7 @@
 // Rahmen für die Karte 
 let myMap = L.map("mapdiv");
 //DOClink: 1.3.0.html#map-l-map
+let markerGroup =L.featureGroup();
 let myLayers= {
     osm: L.tileLayer (
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -66,6 +67,7 @@ let myMapControl = L.control.layers ({
     
 },
 {   "basemap.at Overlay":myLayers.bmapoverlay,
+    "Marker": markerGroup,
 
 },
 {
@@ -92,21 +94,40 @@ L.control.scale({
         position: "bottomleft" //DOCLINK: http://leafletjs.com/reference-1.3.0.html#control-scale-position
 }).addTo(myMap);
 
-
+myMap.addLayer(markerGroup);
 const uni = [47.264, 11.385];
 const usi = [47.257, 11.356];
 const technik = [47.263, 11.343];
+const igls = [47.232286, 11.408454];
+const patscherkofel = [47.218472,11.466409];
 const markerOptions = {
     titel: 'Universität Innsbruck',
     riseOnHover: true,
     draggable: true
 };
+L.marker(uni, markerOptions).addTo(markerGroup);
+L.marker(usi, markerOptions).addTo(markerGroup);
+L.marker(technik, markerOptions).addTo(markerGroup);
+L.marker (igls, markerOptions).addTo(markerGroup);
+L.marker (patscherkofel, markerOptions).addTo(markerGroup).bindPopup("<p><h3>Patscherkofel</h3></p><img style='width:200px' src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/12-06-05-innsbruck-by-ralfr-014.jpg/1024px-12-06-05-innsbruck-by-ralfr-014.jpg' alt='Patscherkofel'/>");
 
-L.marker(uni, markerOptions).addTo(myMap);
-L.marker(usi, markerOptions).addTo(myMap);
-L.marker(technik, markerOptions).addTo(myMap);
+// Übersichtlicher, wenn man eine neue Variable definiert und daran dann das Popup anbindet 
+myMap.fitBounds(markerGroup.getBounds());
 
-myMap.setView(uni,14);
+var latlngs= [
+    [47.232286, 11.408454],
+    [47.218472,11.466409]
+];
+
+var polyline = L.polyline (latlngs,
+    {color: 'red'}).addTo(myMap);
+
+
+let uniPolygon = L.polygon([uni,usi,technik]);
+myMap.addLayer(uniPolygon);
+ 
+
+//myMap.setView(uni,14);
 
 
 
