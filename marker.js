@@ -57,7 +57,7 @@ myMap.addLayer(myLayers.osm);
 
 //DOKLINK: http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
 let myMapControl = L.control.layers ({
-    //<Object> baselayers?
+    
     "Openstreetmap" :myLayers.osm,
     "basemap.at Gundkarte":myLayers.geolandbasemap,
     "basemap.at grau":myLayers.bmapgrau,
@@ -66,11 +66,10 @@ let myMapControl = L.control.layers ({
     
 },
 {   "basemap.at Overlay":myLayers.bmapoverlay,
-// <Object> overlays=
+
 },
 {
-    collapsed: false
-// <Control.Layers options> options? 
+    collapsed:false
 });
 
 //DOCLINK für collapse: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
