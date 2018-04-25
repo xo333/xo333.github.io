@@ -68,7 +68,9 @@ let myMapControl = L.control.layers ({
 {   "basemap.at Overlay":myLayers.bmapoverlay,
 
 },
-{"collapsed":false});
+{
+    collapsed:false
+});
 
 //DOCLINK für collapse: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 
