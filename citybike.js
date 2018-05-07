@@ -1,20 +1,23 @@
 let myMap = L.map("mapdiv");
 const wienGroup = L.featureGroup();
+
+// L.geoJSON(bikeWien).addTo(myMap);
+
 let myLayers = {
 
-    osm : L.tileLayer ( 
+    /* osm : L.tileLayer ( 
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       
         attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>osm.org"
     } 
-    ),
+    ), */
     geolandbasemap : L.tileLayer (
         "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
         }
     ),
-    bmapoverlay : L.tileLayer (
+    /* bmapoverlay : L.tileLayer (
         "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
@@ -37,25 +40,24 @@ let myLayers = {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
         }
-    )
+    ) */
 };
 
 
-myMap.addLayer(myLayers.osm);//DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addlayer
-
+myMap.addLayer(myLayers.geolandbasemap);//DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
 
 let myMapControl = L.control.layers({ //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
-    "Openstreetmap" : myLayers.osm,
+    // "Openstreetmap" : myLayers.osm,
     "Geolandbasemap" : myLayers.geolandbasemap,
-    "bmapgrau" : myLayers.bmapgrau,
-    "bmaphidpi" : myLayers.bmaphidpi,
-    "Orthofoto 30cm" : myLayers.bmaporthofoto30cm,
+    //"bmapgrau" : myLayers.bmapgrau,
+    //"bmaphidpi" : myLayers.bmaphidpi,
+    //"Orthofoto 30cm" : myLayers.bmaporthofoto30cm,
 },{
-    "bmapoverlay" : myLayers.bmapoverlay, // schrift kann in allen anderen Layern angezeigt werden
-    "Stadtspaziergang": wienGroup,
+    //"bmapoverlay" : myLayers.bmapoverlay, // schrift kann in allen anderen Layern angezeigt werden
+    "Standorte Stadtfahrräder": wienGroup,
 },{
-    //collapsed : false, //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
+    // collapsed : false, //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
     //ich bin mir nicht sicher, ob ich die aufgabe richtig verstanden habe, aber jetzt ist das layer control direkt ausgeklappt..
 })
 myMap.addControl(myMapControl); //DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -91,7 +93,7 @@ async function addGeojson(url){
         pointToLayer: function(geoJsonPoint, latlng) {//icon der marker Points ändern: 
             return L.marker(latlng,{
                 icon: L.icon({
-                    iconUrl: 'icons/sights.png',
+                    iconUrl: 'icons/bicycle_parking.png',
                 })
             });
         }
@@ -102,10 +104,25 @@ async function addGeojson(url){
 
 
 
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SPAZIERPUNKTOGD,ogdwien:SPAZIERLINIEOGD";
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json";
 
 
 addGeojson(url); //ruft die funktion auf 
+
+// Wie binde ich da jetzt Popups ein?? 
+
+
+/* let geojson =L.geoJSON(bikeWien).addTo(myMap);
+geojson.bindPopup();
+
+myMap.addLayer(wienGroup);
+let geojson = L.geoJSON(bikeWien).addTo(wienGroup);
+geojson.bindPopup (function(layer) {
+    const props = layer.feature.properties;
+    const popupText = `${props.STATION}`;
+    return popupText;
+});
+*/
 
 
 

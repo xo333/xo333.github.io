@@ -2,19 +2,19 @@ let myMap = L.map("mapdiv");
 const wienGroup = L.featureGroup();
 let myLayers = {
 
-    osm : L.tileLayer ( 
+    /*osm : L.tileLayer ( 
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       
         attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>osm.org"
     } 
-    ),
+    ),*/
     geolandbasemap : L.tileLayer (
         "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
         }
     ),
-    bmapoverlay : L.tileLayer (
+    /* bmapoverlay : L.tileLayer (
         "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
@@ -37,25 +37,25 @@ let myLayers = {
             subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"], 
             attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at" 
         }
-    )
+    )*/
 };
 
 
-myMap.addLayer(myLayers.osm);//DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addlayer
+myMap.addLayer(myLayers.geolandbasemap);//DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
 
 
 let myMapControl = L.control.layers({ //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
-    "Openstreetmap" : myLayers.osm,
+    // "Openstreetmap" : myLayers.osm,
     "Geolandbasemap" : myLayers.geolandbasemap,
-    "bmapgrau" : myLayers.bmapgrau,
-    "bmaphidpi" : myLayers.bmaphidpi,
-    "Orthofoto 30cm" : myLayers.bmaporthofoto30cm,
+    // "bmapgrau" : myLayers.bmapgrau,
+    // "bmaphidpi" : myLayers.bmaphidpi,
+    // "Orthofoto 30cm" : myLayers.bmaporthofoto30cm,
 },{
-    "bmapoverlay" : myLayers.bmapoverlay, // schrift kann in allen anderen Layern angezeigt werden
-    "Stadtspaziergang": wienGroup,
+    // "bmapoverlay" : myLayers.bmapoverlay, // schrift kann in allen anderen Layern angezeigt werden
+    "Sehenswürdigkeiten Wien": wienGroup,
 },{
-    //collapsed : false, //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
+    collapsed : false, //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
     //ich bin mir nicht sicher, ob ich die aufgabe richtig verstanden habe, aber jetzt ist das layer control direkt ausgeklappt..
 })
 myMap.addControl(myMapControl); //DOCLink: http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -79,11 +79,11 @@ let myScale = L.control.scale({ //DOCLink: http://leafletjs.com/reference-1.3.0.
 //async bedeutet, das etwas passiert, was nicht in der datei funktioniert..?
 //daten werden von dem server herunter geladen:
 async function addGeojson(url){
-    console.log("url wird geladen", url);
+    // console.log("url wird geladen", url);
     const response= await fetch(url);  //was bedeutet fetch??
-    console.log("Response: ", response);
+    // console.log("Response: ", response);
     const wiendata = await response.json(); //was bedeutet await?
-    console.log ("GEOJson: ", wiendata);
+    // console.log ("GEOJson: ", wiendata);
     const geojson = L.geoJSON(wiendata,{
         style: function(feature){
             return {color: "#ff0000"};
@@ -102,7 +102,7 @@ async function addGeojson(url){
 
 
 
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SPAZIERPUNKTOGD,ogdwien:SPAZIERLINIEOGD";
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json";
 
 
 addGeojson(url); //ruft die funktion auf 
