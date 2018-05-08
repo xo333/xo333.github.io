@@ -81,11 +81,11 @@ let myScale = L.control.scale({ //DOCLink: http://leafletjs.com/reference-1.3.0.
 //async bedeutet, das etwas passiert, was nicht in der datei funktioniert..?
 //daten werden von dem server herunter geladen:
 async function addGeojson(url){
-    console.log("url wird geladen", url);
+    // console.log("url wird geladen", url);
     const response= await fetch(url);  //was bedeutet fetch??
-    console.log("Response: ", response);
+    // console.log("Response: ", response);
     const wiendata = await response.json(); //was bedeutet await?
-    console.log ("GEOJson: ", wiendata);
+    // console.log ("GEOJson: ", wiendata);
     const geojson = L.geoJSON(wiendata,{
         style: function(feature){
             return {color: "#ff0000"};
@@ -99,30 +99,20 @@ async function addGeojson(url){
         }
     }
     );
+    geojson.bindPopup (function (layer){
+        const props = layer.feature.properties;
+        const popupText = `<p> Standort der Stadträder: </br> <h3> ${props.STATION} </h3> </p>`;
+        return popupText;
+    });
+
     wienGroup.addLayer(geojson);
 }
-
 
 
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json";
 
 
 addGeojson(url); //ruft die funktion auf 
-
-// Wie binde ich da jetzt Popups ein?? 
-
-
-/* let geojson =L.geoJSON(bikeWien).addTo(myMap);
-geojson.bindPopup();
-
-myMap.addLayer(wienGroup);
-let geojson = L.geoJSON(bikeWien).addTo(wienGroup);
-geojson.bindPopup (function(layer) {
-    const props = layer.feature.properties;
-    const popupText = `${props.STATION}`;
-    return popupText;
-});
-*/
 
 
 

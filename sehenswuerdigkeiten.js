@@ -97,6 +97,11 @@ async function addGeojson(url){
         }
     }
     );
+    geojson.bindPopup (function (layer){
+        const props = layer.feature.properties;
+        const popupText = `<p> <h3> ${props.NAME} </h3> Adresse: ${props.ADRESSE} </br> Nützliche Infos:  <a href="${props.WEITERE_INF}"> ${props.WEITERE_INF}</a>git </p>`;
+        return popupText;
+    });
     wienGroup.addLayer(geojson);
 }
 
