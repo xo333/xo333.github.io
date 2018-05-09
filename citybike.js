@@ -1,5 +1,7 @@
 let myMap = L.map("mapdiv");
-const wienGroup = L.featureGroup();
+// const wienGroup = L.featureGroup();
+const markersCluster = L.markerClusterGroup().addTo(myMap);
+
 
 // L.geoJSON(bikeWien).addTo(myMap);
 
@@ -55,7 +57,7 @@ let myMapControl = L.control.layers({ //DOCLink: http://leafletjs.com/reference-
     //"Orthofoto 30cm" : myLayers.bmaporthofoto30cm,
 },{
     //"bmapoverlay" : myLayers.bmapoverlay, // schrift kann in allen anderen Layern angezeigt werden
-    "Standorte Stadtfahrräder": wienGroup,
+    "Standorte Stadtfahrräder": markersCluster,
 },{
     // collapsed : false, //DOCLink: http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
     //ich bin mir nicht sicher, ob ich die aufgabe richtig verstanden habe, aber jetzt ist das layer control direkt ausgeklappt..
@@ -105,7 +107,10 @@ async function addGeojson(url){
         return popupText;
     });
 
-    wienGroup.addLayer(geojson);
+    const hash = new L.Hash(myMap);
+
+    markersCluster.addLayer(geojson);
+    myMap.fitBounds(markersCluster.getBounds())
 }
 
 
@@ -113,6 +118,9 @@ const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&ve
 
 
 addGeojson(url); //ruft die funktion auf 
+
+
+
 
 
 
