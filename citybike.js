@@ -108,9 +108,12 @@ async function addGeojson(url){
     });
 
     const hash = new L.Hash(myMap);
+    myMap.addControl(new L.Control.Search({
+        layer: markersCluster,
+        propertyName: 'STATION' }));
 
     markersCluster.addLayer(geojson);
-    myMap.fitBounds(markersCluster.getBounds())
+    myMap.fitBounds(markersCluster.getBounds());
 }
 
 
