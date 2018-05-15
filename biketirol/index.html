@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bike Trail Tirol - Etappe Tannheim - Reutte </title><!-- TODO: Etappentitel einfügen -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../js/leaflet/leaflet.css" />
+    <script src="../js/leaflet/leaflet.js"></script>
+
+    <script src="etappe03.geojson.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="biketirol.js"></script>
+    
+
+</head>
+
+<body>
+    <div id="header">
+        <h2 class="white">Bike Trail Tirol</h2>
+        <h3 class="white">Griass enk die Wadeln!</h3>
+    </div>
+
+    <div class="author">
+        <img src="images/user.jpg" alt="Ihr Reiseleiter" /><!-- TODO: anpassen -->
+        <p class="gray">
+            <a href="mailto:jessica.balling@uibk.ac.at">Jessica Balling</a> -<!-- TODO: anpassen -->
+            <a href="https://xo333.github.io/biketirol/index.html">https://xo333.github.io/biketirol/</a><!-- TODO: anpassen -->
+        </p>
+    </div>
+
+    <hr />
+
+    
+    <div class="article">
+        <h1>Etappe 3 - Von Tannheim nach Reutte</h1><!-- TODO: anpassen -->
+
+        <p>Diese grenzüberschreitende Mountainbike-Etappe erschließt das westliche Tannheimer Tal bis zur tirolerisch-bayrischen Grenze am Oberjoch, ehe Sie über die „grüne Grenze“ und das Vilstal nach Bayern und Pfronten gelangen. Auf einem Großteil dieser mittelschweren Etappe mit insgesamt 500 Höhenmeter fahren Sie über asphaltierte Wege.</p>
+
+        <!--TODO: Karte mit Radroute und Marker beim Start- und Endpunkt. Hintergrundkarte OSM, basemap.at und Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) - siehe biketirol.js -->
+        <div id="map"></div>
+
+        <h2>Streckenbeschreibung</h2>
+        <p>Von der Kirche nimmt man die Straße Richtung Norden und unterquert die Bundesstraße. Nun geht es zuerst in den Weiler Berg und weiter durch die Wiesen des westlichen Tannheimer Tals immer entlang des Radwegs mit seinen grünen Wegweisern Richtung Zöblen/Schattwald. Kurz vor der Kläranlage beim Vilsstausee (45min ab Tannheim) wechselt man Richtung Pfronten auf den Höhenweg Schattwald/Kappl-Vilstal (803) und orientiert sich an den Radwegweisern bis zur Staatsgrenze. Auf bayrischer Seite verläuft die Route immer am Hauptweg des Tals bis ins Zentrum von Pfronten (1h 15min ab Vilsstausee). Bei der Polizeistation zweigt man rechts ab, überquert die Vils, um gleich danach wieder links Richtung Pfronten- Meilingen weiterzuradeln. Nun geht es am Vilsdamm entlang Richtung Pfronten- Steinach, bis man kurz vor der Grenze die Vils wiederum überquert und an deren Nordufer auf dem Radweg bis ins Zentrum der Stadt Vils fährt (ca. 30min ab Pfronten). Dort angekommen wird die Hauptstraße vor der Kirche überquert und es geht auf dem Radweg (gelbe Wegweiser) nach Musau. In Musau zweigt der Radweg rechts ab und man folgt wieder den grünen Schildern nach Lechaschau. Bei der Kirche in Lechaschau wird der Lech nach Reutte überquert, um gleich danach links abzuzweigen (Untergsteig). Nun radelt man ins Zentrum (45min ab Vils), dort durch die Fußgängerzone und gerade weiter auf der Straße, bis man sich bei der Abzweigung nach Ehenbichl rechts hält. Nach etwa einem Kilometer auf der Straße geht es links ab zur Ehrenberger Klause. Offizielles Etappenende ist ein paar hundert Meter weiter bei der Weggabelung (45min ab Reutte), wo die direkte Route aus Weißenbach und die nächste Etappe nach Ehrwald zusammenkommen.</p>
+
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://www.tirol.at/reisefuehrer/sport/radfahren/biketouren/a-bike-trail-tirol-tannheim-reutte">Etappenbeschreibung Tannheim - Reutte</a></li>
+            <li><a href="https://www.tannheimertal.at/">Tannheimer Tal </a></li>
+            <li><a href="https://www.reutte.com/">TVB Naturparkregion Reutte</a></li>
+            <li><a href="https://www.pfronten.de/">Pfronten Tourismus</a></li>
+            <li><a href="https://www.bergfex.at/">Bergfex - Ihr Wetterbericht</a></li>
+        </ul>
+    </div>
+
+    <hr />
+
+    <!-- TODO: Links anpassen zu den benachbarten Etappen - siehe OLAT Tabelle ... -->
+    <div id="footer" class="gray">
+        <a class="back" href="../02/index.html">
+            <i class="fas fa-arrow-alt-circle-left"></i> vorhergehender Stop</a>
+        <a class="next" href="../06/index.html">nächster Stop
+            <i class="fas fa-arrow-alt-circle-right"></i>
+        </a>
+    </div>
+
+</body>
+</html>
