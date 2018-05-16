@@ -112,7 +112,7 @@ let myMapControl = L.control.layers ({
 },
 {   "basemap.at Overlay":myLayers.bmapoverlay,
     "Marker":markerGroup,
-    "Route":coordGroup,
+    "GPX-Track":coordGroup,
 // <Object> overlays=
 },
 {
@@ -154,7 +154,8 @@ let startMarker = L.marker (start,
 {
     icon: L.icon ({
         iconUrl:'images/start.png',
-        iconAnchor: [16,37]
+        iconAnchor: [16,37],
+        popupAnchor: [0, -37]
     })}).addTo(markerGroup);
     startMarker.bindPopup("<h3>Tannheim</h3> Zum Wikipediaeintrag: <a href='https://de.wikipedia.org/wiki/Tannheim_(Tirol)'> Tannheim </a>").openPopup;
 
@@ -162,20 +163,43 @@ let finishMarker = L.marker (finish,
 {
     icon: L.icon ({
         iconUrl:'images/finish.png',
-        iconAnchor:[16,37]
+        iconAnchor:[16,37],
+        popupAnchor:[0,-37],
     })}).addTo(markerGroup);
     finishMarker.bindPopup("<h3> Reutte </h3> Zum Wikipediaeintrag <a href='https://de.wikipedia.org/wiki/Reutte'> Reutte </a>").openPopup;
 
 
 myMap.addLayer(coordGroup);
-let geojson = L.geoJSON(etappe03).addTo(coordGroup);
+
+/* let geojson = L.geoJSON(etappe03).addTo(coordGroup);
 geojson.bindPopup(function(layer) {
     const props = layer.feature.properties;
     const popupText = `${props.name}`;
     return popupText;
+}); 
+
+myMap.fitBounds(coordGroup.getBounds()); */
+
+
+
+let gpxTrack = new L.GPX("data/etappe03.gpx", {
+    async: true, 
+}).addTo(coordGroup);
+gpxTrack.on("loaded", function (evt){
+    console.log("get distance", evt.target.get_distance().toFixed(0))
+    console.log("get elevation min", evt.target.get_elevation_min())
+    console.log("get elevation max", evt.target.get_elevation_max())
+    console.log("get elevation gain", evt.target.get_elevation_gain())
+    console.log("get elevation loss", evt.target.get_elevation_loss())
+
+    let laenge = evt.target.get_distance().toFixed(0);
+    document.getElementById("laenge").innerHTML = laenge;
+
+    myMap.fitBounds(evt.target.getBounds());
 });
 
-myMap.fitBounds(coordGroup.getBounds());
+//Fullscreen
+myMap.addControl(new L.Control.Fullscreen(map));
 
 
 // Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) über L.featureGroup([]) definieren

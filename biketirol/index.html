@@ -11,10 +11,15 @@
     <link rel="stylesheet" href="../js/leaflet/leaflet.css" />
     <script src="../js/leaflet/leaflet.js"></script>
 
-    <script src="etappe03.geojson.js"></script>
+    <!-- <script src="etappe03.geojson.js"></script> -->
 
     <link rel="stylesheet" href="styles.css" />
     <script defer src="biketirol.js"></script>
+
+    <script src='../js/leaflet.fullscreen/Leaflet.fullscreen.min.js'></script>
+    <link href='../js/leaflet.fullscreen/leaflet.fullscreen.css' rel='stylesheet' />
+
+    <script src='../js/leaflet.gpx/gpx.js'></script>
     
 
 </head>
@@ -40,7 +45,7 @@
         <h1>Etappe 3 - Von Tannheim nach Reutte</h1><!-- TODO: anpassen -->
 
         <p>Diese grenzüberschreitende Mountainbike-Etappe erschließt das westliche Tannheimer Tal bis zur tirolerisch-bayrischen Grenze am Oberjoch, ehe Sie über die „grüne Grenze“ und das Vilstal nach Bayern und Pfronten gelangen. Auf einem Großteil dieser mittelschweren Etappe mit insgesamt 500 Höhenmeter fahren Sie über asphaltierte Wege.</p>
-
+        <p>Tourdaten: Gesamtlänge <span id="laenge"></span> m</p>
         <!--TODO: Karte mit Radroute und Marker beim Start- und Endpunkt. Hintergrundkarte OSM, basemap.at und Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) - siehe biketirol.js -->
         <div id="map"></div>
 
