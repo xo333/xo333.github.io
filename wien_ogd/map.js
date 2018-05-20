@@ -139,3 +139,6 @@ layerAuswahl.onchange = function (evt) {
     ladeGeojsonLayer(wienDatensaetze[i]); // läd die Layer
 }
 //console.log(wienDatensaetze);
+
+// Fullscreen 
+karte.addControl (new L.Control.Fullscreen());
