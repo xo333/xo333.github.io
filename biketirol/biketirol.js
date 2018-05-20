@@ -186,14 +186,19 @@ let gpxTrack = new L.GPX("data/etappe03.gpx", {
     async: true, 
 }).addTo(coordGroup);
 gpxTrack.on("loaded", function (evt){
-    console.log("get distance", evt.target.get_distance().toFixed(0))
-    console.log("get elevation min", evt.target.get_elevation_min())
-    console.log("get elevation max", evt.target.get_elevation_max())
-    console.log("get elevation gain", evt.target.get_elevation_gain())
-    console.log("get elevation loss", evt.target.get_elevation_loss())
+    console.log("get_distance", evt.target.get_distance().toFixed(0))
+    console.log("get_elevation_min", evt.target.get_elevation_min())
+    console.log("get_elevation_max", evt.target.get_elevation_max())
+    console.log("get_elevation_gain", evt.target.get_elevation_gain())
+    console.log("get_elevation_loss", evt.target.get_elevation_loss())
 
-    let laenge = evt.target.get_distance().toFixed(0);
-    document.getElementById("laenge").innerHTML = laenge;
+    //let laenge = evt.target.get_distance().toFixed(0);
+    document.getElementById("get_distance").innerHTML = track.get_distance().toFixed(0);
+    document.getElementById("get_elevation_min").innerHTML = track.get_elevation_min().toFixed(0);
+    document.getElementById("get_elevation_max").innerHTML = track.get_elevation_max().toFixed(0);
+    document.getElementById("get_elevation_gain").innerHTML = track.get_elevation_gain().toFixed(0);
+    document.getElementById("get_elevation_loss").innerHTML = track.get_elevation_loss().toFixed(0);
+
 
     myMap.fitBounds(evt.target.getBounds());
 });
