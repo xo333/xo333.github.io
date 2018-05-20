@@ -16,7 +16,7 @@
 // Rahmen für die Karte 
 let myMap = L.map("map");
 //DOClink: 1.3.0.html#map-l-map
-let tirolKarten = L.featureGroup();
+
 
 let markerGroup = L.featureGroup();
 let coordGroup = L.featureGroup();
@@ -59,6 +59,13 @@ let myLayers= {
             attribution: "Datenquelle: <a href='http://kartetirol.at/#10/47.1897/11.5700'> kartetirol.at </a>"
         }
     ),
+    gdi_base_nomenklatur: L.tileLayer (
+        "http://wmts.kartetirol.at/wmts/gdi_nomenklatur/GoogleMapsCompatible/{z}/{x}/{y}.png8",
+        {
+            //subdomains : [],
+            attribution: "Datenquelle: <a href='http://kartetirol.at/#10/47.1897/11.5700'> kartetirol.at </a>"
+        }
+    ),
     bmapoverlay: L.tileLayer (
         "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png",
         {
@@ -89,7 +96,19 @@ let myLayers= {
         }
     )*/
 };
- 
+
+const tiris_Sommer = L.layerGroup([
+    myLayers.gdi_base_summer, 
+    myLayers.gdi_base_nomenklatur,
+]);
+const tiris_Winter = L.layerGroup([
+    myLayers.gdi_base_winter, 
+    myLayers.gdi_base_nomenklatur,
+]);
+const tiris_Ortho = L.layerGroup([
+    myLayers.gdi_base_ortho, 
+    myLayers.gdi_base_nomenklatur,
+]);
 
 // Layer zur Karte hinzufügen - zusammenbauen 
 myMap.addLayer(myLayers.osm);
@@ -105,12 +124,12 @@ let myMapControl = L.control.layers ({
     //"basemap.at highdpi":myLayers.bmaphidpi,
     //"basemap.at Orthofoto":myLayers.bmaporthofoto30cm,
 
-    "Karte Tirol Sommer": myLayers.gdi_base_summer,
-    "Karte Tirol Winter": myLayers.gdi_base_winter,
-    "Karte Tirol Orthofoto": myLayers.gdi_base_ortho,
+    "Karte Tirol Sommer": tiris_Sommer,
+    "Karte Tirol Winter": tiris_Winter,
+    "Karte Tirol Orthofoto": tiris_Ortho,
     
 },
-{   "basemap.at Overlay":myLayers.bmapoverlay,
+{   //"basemap.at Overlay":myLayers.bmapoverlay,
     "Marker":markerGroup,
     "GPX-Track":coordGroup,
 // <Object> overlays=
