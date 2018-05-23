@@ -20,6 +20,7 @@ let myMap = L.map("map");
 
 let markerGroup = L.featureGroup();
 let coordGroup = L.featureGroup();
+let overlayElevation = L.featureGroup().addTo(myMap);
 
 let myLayers= {
     osm: L.tileLayer (
@@ -130,8 +131,9 @@ let myMapControl = L.control.layers ({
     
 },
 {   //"basemap.at Overlay":myLayers.bmapoverlay,
-    "Marker":markerGroup,
-    "GPX-Track":coordGroup,
+    "Start/Ziel":markerGroup,
+   // "GPX-Track":coordGroup,
+    "Steigungslinie": overlayElevation
 // <Object> overlays=
 },
 {
@@ -203,7 +205,7 @@ myMap.fitBounds(coordGroup.getBounds()); */
 
 let gpxTrack = new L.GPX("data/etappe03.gpx", {
     async: true, 
-}).addTo(coordGroup);
+});//.addTo(coordGroup);
 gpxTrack.on("loaded", function (evt){
     let track = evt.target;
     console.log("get_distance", track.get_distance().toFixed(0))
@@ -225,6 +227,98 @@ gpxTrack.on("loaded", function (evt){
 
 //Fullscreen
 myMap.addControl(new L.Control.Fullscreen(map));
+
+let elevationProfil = L.control.elevation ({
+    position: "bottomleft",
+    theme: "lime-theme",
+    width: 600,
+	height: 125,
+	margins: {
+		top: 10,
+		right: 20,
+		bottom: 30,
+		left: 50
+	},
+    useHeightIndicator: true,
+    interpolation: "linear",
+    hoverNumber: {
+		decimalsX: 3, //decimals on distance (always in km)
+		decimalsY: 0, //deciamls on hehttps://www.npmjs.com/package/leaflet.coordinatesight (always in m)
+		formatter: undefined //custom formatter function may be injected
+    },
+    xTicks: undefined, //number of ticks in x axis, calculated by default according to width
+	yTicks: undefined, //number of ticks on y axis, calculated by default according to height
+	collapsed: true,  //collapsed mode, show chart on click or mouseover
+	imperial: false    //display imperial units instead of metric
+});
+
+elevationProfil.addTo (myMap);
+
+gpxTrack.on("addline",function(evt){
+elevationProfil.addData(evt.line);
+console.log (evt.line);
+console.log (evt.line.getLatLngs());
+console.log (evt.line.getLatLngs()[0]);
+console.log (evt.line.getLatLngs()[0].lat);
+console.log (evt.line.getLatLngs()[0].lng);
+console.log (evt.line.getLatLngs()[0].meta);
+console.log (evt.line.getLatLngs()[0].meta.ele);
+
+// alle Segmente der Steigungslinie hinzufügen
+ let gpxLinie = evt.line.getLatLngs ();
+ for (let i = 1; i < gpxLinie.length; i ++) {
+     let p1 = gpxLinie [i-1];
+     let p2 =gpxLinie[i];
+     
+    //DOCS: https://leafletjs.com/reference-1.3.0.html#map-distance
+    //Entfernung zwischen den Punkten berechnen
+    let dist = myMap.distance (
+        [p1.lat, p1.lng],
+        [p2.lat, p2.lng]
+    );
+    // Höhenunterschied berechnen 
+    let delta = p2.meta.ele - p1.meta.ele;
+    // Steigung in Prozent berechenen mit einer Nachkommastelle (toFixed)
+   
+    /* let proz = 0; 
+    if (dist > 0) {
+        proz = (delta/dist * 100.0).toFixed(1);
+    } */
+
+    let proz = (dist > 0) ? (delta / dist * 100.00).toFixed(1) : 0;
+    //Bedingung ? Ausdruck 1 : Ausdruck 2 
+
+    console.log(p1.lat,p1.lng,p2.lat,p2.lng, dist, delta, proz); 
+
+     // DOCS: https://leafletjs.com/reference-1.3.0.html#polyline
+    // Farben: http://colorbrewer2.org/#type=sequential&scheme=Reds&n=7
+
+     let farbe = 
+        proz > 10  ? "#fc9272": 
+        proz > 6   ? "#fcbba1":
+        proz > 2   ? "#fee5d9":
+        proz > 0   ? "#edf8e9":
+        proz > -2  ? "#c7e9c0":
+        proz > -6  ? "#a1d99b":
+        proz > -10 ? "#74c476":
+                     "#41ab5d";
+
+     let segment = L.polyline([
+         [p1.lat, p1.lng],
+         [p2.lat, p2.lng],
+      ], {
+         color: farbe,
+         weight: 5
+        }
+    ).addTo(overlayElevation);
+ }
+});
+
+
+
+
+
+
 
 
 // Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) über L.featureGroup([]) definieren
